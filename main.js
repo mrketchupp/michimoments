@@ -1,6 +1,8 @@
 console.log('Mommy Beidou ⚡');
 
-const urlAPI = 'https://api.thecatapi.com/v1/images/search';
+const urlAPI = 'https://api.thecatapi.com/v1/images/search?limit=5';
+const section = document.querySelector('section');
+const images = [];
 
 const fetchData = async (urlAPI)=> {
   try {
@@ -14,9 +16,15 @@ const fetchData = async (urlAPI)=> {
 
 const useData = async (urlAPI)=> {
   try {
-    const img = document.querySelector('img');
     const data = await fetchData(urlAPI);
-    img.src = `${data[0].url}`;
+    data.forEach(item => {
+      const img = document.createElement('img');
+      img.className = 'w-3/4 sm:w-2/4 h-fit mx-auto mt-4 border-none rounded-md bg-auto';
+      img.src = `${item.url}`;
+      images.push(img);
+    });
+
+    section.append(...images);
 
   } catch (error) {
     console.log(error)
@@ -25,7 +33,14 @@ const useData = async (urlAPI)=> {
 
 const newImg = (urlAPI)=> {
   const button = document.querySelector('button');
-  button.addEventListener('click', ()=>{useData(urlAPI)});
+  button.addEventListener('click', ()=>{
+    const catImg = document.querySelectorAll('img');
+    [...catImg].forEach(item =>{
+      item.remove();
+      images.pop();
+    })
+    useData(urlAPI)
+  });
 }
 
 useData(urlAPI);
