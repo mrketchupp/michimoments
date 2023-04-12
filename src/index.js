@@ -2,6 +2,10 @@ console.log('Mommy Beidou ⚡');
 import "@components/buttons/largeButton.js";
 import "@styles/main.css"
 
+import feather from 'feather-icons';
+feather.replace();
+
+
 const urlAPI = 'https://api.thecatapi.com/v1/images/search?limit=2&api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU';
 const section = document.querySelector('section');
 const images = [];

@@ -30,5 +30,8 @@
     "webpack": "^5.78.0",
     "webpack-cli": "^5.0.1",
     "webpack-dev-server": "^4.13.2"
+  },
+  "dependencies": {
+    "feather-icons": "^4.29.0"
   }
 }

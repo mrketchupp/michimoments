@@ -34,10 +34,11 @@
 }
 
 #app {
-  width: max-content;
+  width: vw;
   height: 100vh;
   max-height: fit-content;
   background-color: #1f1f1f;
+
 }
 
 .name {
@@ -45,4 +46,15 @@
   text-align: center;
   font-size:xx-large;
 }
+
+.test {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+large-button:hover svg {
+  stroke: #f91880;
+  fill: #f91880;
+}
+
 
