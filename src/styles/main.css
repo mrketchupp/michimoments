@@ -34,9 +34,9 @@
 }
 
 #app {
-  width: vw;
-  height: 100vh;
-  max-height: fit-content;
+  width: 100%;
+  min-height: 100vh;
+  height: fit-content;
   background-color: #1f1f1f;
 
 }
@@ -47,13 +47,28 @@
   font-size:xx-large;
 }
 
-.test {
-  width: fit-content;
+.discover {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  width: 75%;
   margin: 0 auto;
+}
+
+.test {
+  width: 50%;
+  padding: 16px;
+}
+
+contra-photo {
+  --color: white;
 }
 
 large-button:hover svg {
   stroke: #f91880;
+}
+
+large-button:active svg {
   fill: #f91880;
 }
 

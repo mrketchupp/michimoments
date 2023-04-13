@@ -1,20 +1,20 @@
-class largeButton extends HTMLElement {
+class contraPhoto extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
   }
 
   static get observedAttributes() {
-    return ['action'];
+    return ['url', 'alt'];
   }
   attributeChangedCallback(atr, oldValue, newValue) {
-    atr === 'action' && oldValue !== newValue ? this.action = newValue : console.log(`Error con: ${atr}`);
+    atr === 'url' && oldValue !== newValue ? this.url = newValue : console.log(`Error con: ${atr}`);
+    atr === 'alt' && oldValue !== newValue ? this.alt = newValue : console.log(`Error con: ${atr}`);
   }
   getTemplate() {
     const template = document.createElement('template');
     template.innerHTML = /*html*/ `
-        <button><slot name="icon"></slot><p>${this.action}</p></button>
-
+        <img src="${this.url}" alt="this.alt">
       ${this.getStyles()}
       `;
     return template;
@@ -24,23 +24,12 @@ class largeButton extends HTMLElement {
           <style>
             :host {
               --color: #18191F;
-              --font: Montserrat;
             }
-            button {
-              display: flex;
-              padding: 16px;
+            img {
+              width: 100%;
               border: 2px var(--color) solid;
               border-radius: 16px;
-              color: var(--color);
-              font-family: var(--font);
-              font-weight:bolder;
-              font-size: 21px;
-              box-shadow: 0px 4px 0px var(--color);
-            }
-            p {
-              margin: 0px;
-              margin-left: 5px;
-            }
+              }
           </style>
       `;
   }
@@ -54,4 +43,4 @@ class largeButton extends HTMLElement {
   }
 }
 
-customElements.define('large-button', largeButton);
+customElements.define('contra-photo', contraPhoto);

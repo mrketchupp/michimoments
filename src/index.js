@@ -1,5 +1,6 @@
 console.log('Mommy Beidou ⚡');
 import "@components/buttons/largeButton.js";
+import "@components/img/photo.js";
 import "@styles/main.css"
 
 import feather from 'feather-icons';
