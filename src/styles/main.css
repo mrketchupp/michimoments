@@ -26,6 +26,13 @@
        url('../assets/fonts/montserrat-v25-latin-800.woff') format('woff'); /* Chrome 5+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
 
+:root {
+  --white: #FFFFFF;
+  --black: #18191F;
+  --black-100: #F4F5F7;
+  --green: #00C6AE;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -33,6 +40,44 @@
   font-family: Montserrat, sans-serif;
 }
 
+/* Menu principal */
+.header {
+  position: relative;
+}
+.nav {
+  display: flex;
+  background-color: var(--white);
+  position: fixed;
+  padding: 20px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.nav-search, .nav-bookmark {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(50% - 10px);
+  padding: 12px;
+  margin: 0 10px;
+  background-color: var(--black-100);
+  border-radius: 20px;
+}
+
+.nav span svg {
+  fill: var(--green);
+  stroke: var(--black);
+}
+
+.nav span p {
+  color: var(--black);
+  font-family: 'Montserrat';
+  font-weight: 800;
+  font-size: 13px;
+  margin-left: 8px;
+}
+
+/* Contenido de gatos */
 #app {
   width: 100%;
   min-height: 100vh;
