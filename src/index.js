@@ -1,16 +1,15 @@
 console.log('Mommy Beidou ⚡');
+
 import "@components/buttons/likeButton.js";
-import "@components/img/photo.js";
+import "@components/img/contraPhoto.js";
+
 import "@styles/main.css";
 
-import feather from 'feather-icons';
-feather.replace();
-
-
-const urlAPI = 'https://api.thecatapi.com/v1/images/search?limit=2&api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU';
-const section = document.querySelector('section');
+import template from "./template.js";
+const urlAPI = 'https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU';
 const images = [];
 
+// Convertir json la consulta a la API
 const fetchData = async (urlAPI)=> {
   try {
     const response = await fetch(urlAPI);
@@ -21,34 +20,27 @@ const fetchData = async (urlAPI)=> {
   }
 }
 
-const useData = async (urlAPI)=> {
+const useData = async (urlAPI, arrayImg)=> {
   try {
     const data = await fetchData(urlAPI);
-    data.forEach(item => {
-      const img = document.createElement('img');
-      img.className = 'w-3/4 sm:w-2/4 h-fit mx-auto mt-4 border-none rounded-md bg-auto';
-      img.src = `${item.url}`;
-      images.push(img);
-    });
-
-    section.append(...images);
-
+    template("discover", data, arrayImg);
   } catch (error) {
     console.log(error)
   }
 }
 
 const newImg = (urlAPI)=> {
-  const button = document.querySelector('button');
-  button.addEventListener('click', ()=>{
-    const catImg = document.querySelectorAll('img');
+  const nav = document.querySelector('nav');
+  const discover = nav.querySelector('span:first-child');
+  discover.addEventListener('click', ()=>{
+    const catImg = document.querySelectorAll('.image');
     [...catImg].forEach(item =>{
       item.remove();
-      images.pop();
     })
-    useData(urlAPI)
+    images.splice(0, images.length);
+    useData(urlAPI, images);
   });
 }
 
-// useData(urlAPI);
-// newImg(urlAPI);
+useData(urlAPI, images);
+newImg(urlAPI);
