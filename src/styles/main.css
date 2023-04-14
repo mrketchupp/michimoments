@@ -28,9 +28,10 @@
 
 :root {
   --white: #FFFFFF;
-  --black: #18191F;
+  --black: #1f1f1f;
   --black-100: #F4F5F7;
-  --green: #00C6AE;
+  --yellow: #FFBD12;
+  --yellow-800: #FFD465;
 }
 
 * {
@@ -44,6 +45,14 @@
 .header {
   position: relative;
 }
+.name {
+  padding: 16px;
+  color: azure;
+  text-align: center;
+  font-size:xx-large;
+  border: 1px var(--black) solid;
+  background-color: var(--black);
+}
 .nav {
   display: flex;
   background-color: var(--white);
@@ -54,7 +63,7 @@
   right: 0;
   z-index: 1;
 }
-.nav-search, .nav-bookmark {
+.nav span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,12 +73,17 @@
   background-color: var(--black-100);
   border-radius: 20px;
 }
-
 .nav span svg {
-  fill: var(--green);
+  fill: var(--yellow);
   stroke: var(--black);
 }
-
+.nav span:active {
+  background-color: var(--yellow);
+}
+.nav span:active svg {
+  fill: var(--black-100);
+  stroke: var(--black);
+}
 .nav span p {
   color: var(--black);
   font-family: 'Montserrat';
@@ -83,17 +97,11 @@
   width: 100%;
   min-height: 100vh;
   height: fit-content;
-  background-color: #1f1f1f;
-
-}
-.name {
-  color: azure;
-  text-align: center;
-  font-size:xx-large;
+  background-color: var(--black);
 }
 
 /* seccion de imagenes random */
-.discover {
+#discover {
   display: flex;
   flex-wrap: wrap;
   justify-items: center;
