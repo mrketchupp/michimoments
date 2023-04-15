@@ -18,6 +18,8 @@ const template = (container, arrayUrls, arrayElements)=> {
     icon.setAttribute("data-feather", "heart");
     icon.setAttribute("stroke", "#71767B");
     icon.setAttribute("slot", "icon");
+
+    like.classList = "like";
     like.append(icon);
 
     photo.setAttribute("url", item);

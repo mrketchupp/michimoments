@@ -25,13 +25,14 @@ const fetchData = async (urlAPI)=> {
   }
 }
 
-const useData = async (urlAPI, arrayElements)=> {
+const useData = async (urlAPI)=> {
   try {
     const data = await fetchData(urlAPI);
     data.forEach(item => {
       discoverUrls.push(item.url);
     });
-    template("discover", discoverUrls, arrayElements);
+    template("discover", discoverUrls, discoverElements);
+    addFavImg();
   } catch (error) {
     console.log(error)
   }
@@ -46,9 +47,22 @@ const newImg = (urlAPI)=> {
       item.remove();
     })
     discoverElements.splice(0, discoverElements.length);
-    useData(urlAPI, discoverElements);
+    discoverUrls.splice(0, discoverUrls.length);
+    useData(urlAPI);
   });
 }
 
+const addFavImg = ()=> {
+  const discover = document.querySelector('#discover');
+  discover.addEventListener('click', (event)=> {
+    if (event.target.closest('.like')) {
+      console.log(event.target.previousElementSibling.getAttribute('url'));
+    }
+  })
+}
+
+
 useData(urlAPI, discoverElements);
 newImg(urlAPI);
+
+
