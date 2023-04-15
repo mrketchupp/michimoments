@@ -5,11 +5,11 @@ import feather from 'feather-icons';
 
 
 
-const template = (container, listImages, arrayImg)=> {
+const template = (container, arrayUrls, arrayElements)=> {
   // Contenedor
   const section = document.querySelector(`#${container}`)
   // Crear la plantilla
-  listImages.forEach(item => {
+  arrayUrls.forEach(item => {
     const marco = document.createElement("div");
     const photo = document.createElement("contra-photo");
     const like = document.createElement("like-button");
@@ -20,14 +20,14 @@ const template = (container, listImages, arrayImg)=> {
     icon.setAttribute("slot", "icon");
     like.append(icon);
 
-    photo.setAttribute("url", item.url);
+    photo.setAttribute("url", item);
     photo.setAttribute("alt", "random cute cat");
 
     marco.className = "image";
     marco.append(photo, like);
-    arrayImg.push(marco);
+    arrayElements.push(marco);
   });
-  section.append(...arrayImg);
+  section.append(...arrayElements);
   feather.replace();
 }
 

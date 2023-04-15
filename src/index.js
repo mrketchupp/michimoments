@@ -7,7 +7,12 @@ import "@styles/main.css";
 
 import template from "./template.js";
 const urlAPI = 'https://api.thecatapi.com/v1/images/search?limit=3&api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU';
-const images = [];
+
+const discoverElements = [];
+const favoritesElements = [];
+
+const discoverUrls = [];
+const favoritesUrls = [];
 
 // Convertir json la consulta a la API
 const fetchData = async (urlAPI)=> {
@@ -20,10 +25,13 @@ const fetchData = async (urlAPI)=> {
   }
 }
 
-const useData = async (urlAPI, arrayImg)=> {
+const useData = async (urlAPI, arrayElements)=> {
   try {
     const data = await fetchData(urlAPI);
-    template("discover", data, arrayImg);
+    data.forEach(item => {
+      discoverUrls.push(item.url);
+    });
+    template("discover", discoverUrls, arrayElements);
   } catch (error) {
     console.log(error)
   }
@@ -37,10 +45,10 @@ const newImg = (urlAPI)=> {
     [...catImg].forEach(item =>{
       item.remove();
     })
-    images.splice(0, images.length);
-    useData(urlAPI, images);
+    discoverElements.splice(0, discoverElements.length);
+    useData(urlAPI, discoverElements);
   });
 }
 
-useData(urlAPI, images);
+useData(urlAPI, discoverElements);
 newImg(urlAPI);
