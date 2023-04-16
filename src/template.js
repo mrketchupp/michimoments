@@ -20,9 +20,10 @@ const template = (container, arrayUrls, arrayElements)=> {
     icon.setAttribute("slot", "icon");
 
     like.classList = "like";
+    like.dataset.id = item.id;
     like.append(icon);
 
-    photo.setAttribute("url", item);
+    photo.setAttribute("url", item.url);
     photo.setAttribute("alt", "random cute cat");
 
     marco.className = "image";
