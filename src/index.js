@@ -4,6 +4,7 @@ import "@components/buttons/likeButton.js";
 import "@components/img/contraPhoto.js";
 import "@styles/main.css";
 import template from "./template.js";
+import templateFav from "./template_fav.js";
 
 const urlAPI = 'https://api.thecatapi.com/v1';
 const keyAPI = 'api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU'
@@ -38,9 +39,10 @@ const favUseData = async (urlAPI)=> {
     const response = await fetchData(`${urlAPI}/favourites?${keyAPI}`);
     const data = [];
     response.forEach(item => {
-      data.push(item.image);
-    })
-    template('favorites', data, favoritesElements);
+      const { id: gato_id, image: { id, url } } = item;
+      data.push({ gato_id, id, url });
+    });
+    templateFav('favorites', data, favoritesElements);
     data.length = 0;
   } catch (error) {
     console.log(error);
@@ -88,8 +90,20 @@ const addFavImg = (urlAPI)=> {
   })
 }
 
+// Borrar una foto de favoritos
+const delFavImg = (urlAPI)=> {
+  const favorites = document.querySelector('#favorites');
+  favorites.addEventListener('click', async (event)=> {
+    if (event.target.closest('.like')) {
+      const id = event.target.closest('.like').dataset.id;
+      const data = await fetchData(`${urlAPI}/favourites/${id}?${keyAPI}`, {method: 'DELETE',})
+      console.log(data);
+      }
+  })
+}
+
 useData(urlAPI);
 newImg(urlAPI);
 addFavImg(urlAPI);
 loadFavImg(urlAPI);
-
+delFavImg(urlAPI);
