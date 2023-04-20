@@ -26,7 +26,7 @@ const fetchData = async (urlAPI, params)=> {
 // Añadir al DOM las fotos random de gatitos
 const useData = async (urlAPI)=> {
   try {
-    const data = await fetchData(`${urlAPI}/images/search?limit=6&${keyAPI}`);
+    const data = await fetchData(`${urlAPI}/images/search?limit=10`, {method: 'GET', headers: { 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU' }});
     template("discover", data, discoverElements);
   } catch (error) {
     console.log(error)
@@ -36,7 +36,7 @@ const useData = async (urlAPI)=> {
 // Añadir al DOM las fotos favoritas de gatitos
 const favUseData = async (urlAPI)=> {
   try {
-    const response = await fetchData(`${urlAPI}/favourites?${keyAPI}`);
+    const response = await fetchData(`${urlAPI}/favourites`, { method: 'GET', headers: { 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU' } });
     const data = [];
     response.forEach(item => {
       const { id: gato_id, image: { id, url } } = item;
@@ -84,7 +84,7 @@ const addFavImg = (urlAPI)=> {
   discover.addEventListener('click', async (event)=> {
     if (event.target.closest('.like')) {
       const id = event.target.closest('.like').dataset.id;
-      const data = await fetchData(`${urlAPI}/favourites?${keyAPI}`, {method: 'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({ image_id: id }),})
+      const data = await fetchData(`${urlAPI}/favourites`, {method: 'POST', headers: {'Content-Type': 'application/json', 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU',}, body: JSON.stringify({ image_id: id }),})
       console.log(data);
       if (data.message === 'SUCCESS') {
         const likeHeart = event.target.closest('.like');
