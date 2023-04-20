@@ -98,6 +98,7 @@
   min-height: 100vh;
   height: fit-content;
   background-color: var(--black);
+  padding-bottom: 88px;
 }
 
 /* seccion de imagenes random */
