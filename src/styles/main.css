@@ -101,7 +101,7 @@
 }
 
 /* seccion de imagenes random */
-#discover {
+#discover, #favorites {
   display: flex;
   flex-wrap: wrap;
   justify-items: center;

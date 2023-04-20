@@ -86,6 +86,12 @@ const addFavImg = (urlAPI)=> {
       const id = event.target.closest('.like').dataset.id;
       const data = await fetchData(`${urlAPI}/favourites?${keyAPI}`, {method: 'POST', headers: {'Content-Type': 'application/json',}, body: JSON.stringify({ image_id: id }),})
       console.log(data);
+      if (data.message === 'SUCCESS') {
+        const likeHeart = event.target.closest('.like');
+        console.log(likeHeart);
+        likeHeart.querySelector('svg.feather-heart').style.stroke = '#f91880';
+        likeHeart.querySelector('svg.feather-heart').style.fill = '#f91880';
+        }
       }
   })
 }
@@ -98,6 +104,14 @@ const delFavImg = (urlAPI)=> {
       const id = event.target.closest('.like').dataset.id;
       const data = await fetchData(`${urlAPI}/favourites/${id}?${keyAPI}`, {method: 'DELETE',})
       console.log(data);
+      if (data.message === 'SUCCESS') {
+        const likeHeart = event.target.closest('.like');
+        const imageContainer = likeHeart.closest('.image');
+        console.log(likeHeart);
+        likeHeart.querySelector('svg.feather-heart').style.stroke = '#71767B';
+        likeHeart.querySelector('svg.feather-heart').style.fill = 'none';
+        imageContainer.remove();
+        }
       }
   })
 }
