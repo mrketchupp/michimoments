@@ -66,7 +66,7 @@ const newImg = (urlAPI)=> {
 // Cargar las fotos favoritas de gatitos
 const loadFavImg = async (urlAPI)=> {
   const nav = document.querySelector('nav');
-  const favorites = nav.querySelector('span:nth-child(2)');
+  const favorites = nav.querySelector('span:nth-child(3)');
   favorites.addEventListener('click', ()=> {
     const catImg = document.querySelectorAll('.image');
     [...catImg].forEach(item =>{
@@ -116,8 +116,29 @@ const delFavImg = (urlAPI)=> {
   })
 }
 
+// Subir una foto a la API
+const uploadImg = async (urlAPI)=> {
+  const upload = document.querySelector('#upload');
+  upload.addEventListener('click', async (event)=>{
+    if (event.target.closest('.uploadButton')) {
+      const form = event.target.closest('#uploadingForm');
+      const formData = new FormData(form);
+      console.log(formData.get('file'));
+      const data = await fetchData(`${urlAPI}/images/upload`, { method: 'POST', headers: { 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU', }, body: formData, })
+      console.log(data);
+      if (data.approved === 1) {
+        console.log('Foto de Michi Subida c:')
+      }
+    }
+
+
+  })
+
+}
+
 useData(urlAPI);
 newImg(urlAPI);
 addFavImg(urlAPI);
 loadFavImg(urlAPI);
 delFavImg(urlAPI);
+uploadImg(urlAPI);
