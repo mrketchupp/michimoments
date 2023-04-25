@@ -5,6 +5,7 @@ import "@components/img/contraPhoto.js";
 import "@styles/main.css";
 import template from "./template.js";
 import templateFav from "./template_fav.js";
+import template_Upload from "./template_upload.js";
 
 const urlAPI = 'https://api.thecatapi.com/v1';
 const keyAPI = 'api_key=live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU'
@@ -116,24 +117,54 @@ const delFavImg = (urlAPI)=> {
   })
 }
 
+// Cargar menu de subir foto
+const publicImg = ()=> {
+  const nav = document.querySelector('nav');
+  const upload = nav.querySelector('span:nth-child(2)');
+  upload.addEventListener('click', async ()=>{
+    const catImg = document.querySelectorAll('.image');
+    [...catImg].forEach(item =>{
+      item.remove();
+    })
+    await template_Upload();
+    previewImg();
+    uploadImg(urlAPI);
+  });
+}
+
+// Previsualiar la foto seleccionada
+const previewImg = ()=> {
+  const input = document.querySelector('#file');
+  const img = document.querySelector('.imgPreview');
+
+  input.addEventListener('change', ()=> {
+    const archivos = input.files;
+    if (!archivos || !archivos.length) {
+      img.src = '';
+      return;
+    }
+    const gatoImg = archivos[0];
+    const url = URL.createObjectURL(gatoImg);
+    img.src = url;
+  })
+}
+
 // Subir una foto a la API
 const uploadImg = async (urlAPI)=> {
   const upload = document.querySelector('#upload');
   upload.addEventListener('click', async (event)=>{
     if (event.target.closest('.uploadButton')) {
-      const form = event.target.closest('#uploadingForm');
+      const form = event.target.closest('form');
+      console.log(form);
       const formData = new FormData(form);
       console.log(formData.get('file'));
       const data = await fetchData(`${urlAPI}/images/upload`, { method: 'POST', headers: { 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU', }, body: formData, })
       console.log(data);
       if (data.approved === 1) {
-        console.log('Foto de Michi Subida c:')
+        console.log('Foto de gato Subida :)')
       }
     }
-
-
   })
-
 }
 
 useData(urlAPI);
@@ -141,4 +172,4 @@ newImg(urlAPI);
 addFavImg(urlAPI);
 loadFavImg(urlAPI);
 delFavImg(urlAPI);
-uploadImg(urlAPI);
+publicImg()
