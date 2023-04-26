@@ -41,6 +41,15 @@
   font-family: 'Montserrat', sans-serif;
 }
 
+body {
+  background-color: var(--black);
+}
+
+.menu, #app {
+  max-width: 540px;
+  margin: 0 auto;
+}
+
 /* Menu principal */
 .header {
   position: relative;
