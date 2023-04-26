@@ -56,6 +56,7 @@ module.exports = {
             inject: 'body',
             template: './public/index.html',
             filename: './index.html',
+            favicon: './src/assets/icon/cat.png',
             chunks: ['index']
         }),
         new MiniCssExtractPlugin({

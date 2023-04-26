@@ -172,6 +172,11 @@
   border: none;
 }
 
+.uploading .saveIMG {
+  background-color: var(--yellow-800);
+}
+
+
 #uploadingForm label svg, .uploading .uploadButton svg {
   margin-right: 8px;
 }

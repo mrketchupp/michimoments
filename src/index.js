@@ -3,6 +3,8 @@ console.log('Mommy Beidou ⚡');
 import "@components/buttons/likeButton.js";
 import "@components/img/contraPhoto.js";
 import "@styles/main.css";
+import feather from 'feather-icons';
+
 import template from "./template.js";
 import templateFav from "./template_fav.js";
 import template_Upload from "./template_upload.js";
@@ -136,16 +138,19 @@ const publicImg = ()=> {
 const previewImg = ()=> {
   const input = document.querySelector('#file');
   const img = document.querySelector('.imgPreview');
+  const uploadButton = document.querySelector('.uploadButton');
 
   input.addEventListener('change', ()=> {
     const archivos = input.files;
     if (!archivos || !archivos.length) {
       img.src = '';
+      uploadButton.className ='uploadButton';
       return;
     }
     const gatoImg = archivos[0];
     const url = URL.createObjectURL(gatoImg);
     img.src = url;
+    uploadButton.className = 'uploadButton';
   })
 }
 
@@ -160,8 +165,26 @@ const uploadImg = async (urlAPI)=> {
       console.log(formData.get('file'));
       const data = await fetchData(`${urlAPI}/images/upload`, { method: 'POST', headers: { 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU', }, body: formData, })
       console.log(data);
+      const idImg = data.id
+      console.log(idImg)
       if (data.approved === 1) {
         console.log('Foto de gato Subida :)')
+        const data2 = await fetchData(`${urlAPI}/favourites`, {method: 'POST', headers: {'Content-Type': 'application/json', 'X-API-KEY': 'live_YdlTv2yFVcGzVVJNJBw0U6pYUbIEnUKgU7AV1I6YE1h838M3EybTMIOQTl5GMpQU',}, body: JSON.stringify({ image_id: idImg }),});
+
+        const uploadButton = event.target.closest('.uploadButton');
+        const iconCheck = document.createElement('i');
+
+        iconCheck.setAttribute('data-feather', 'save');
+        iconCheck.setAttribute('stroke', '#1f1f1f');
+        iconCheck.setAttribute('fill', '#FFBD12');
+        uploadButton.classList = 'uploadButton saveIMG';
+        uploadButton.textContent = 'Foto guadada'
+        uploadButton.append(iconCheck);
+        feather.replace();
+        console.log(data2);
+        if (data2.message === 'SUCCESS') {
+          console.log('Foto subida guardada en favoritos');
+        }
       }
     }
   })
@@ -173,3 +196,4 @@ addFavImg(urlAPI);
 loadFavImg(urlAPI);
 delFavImg(urlAPI);
 publicImg()
+
